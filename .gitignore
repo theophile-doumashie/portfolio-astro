@@ -2,6 +2,8 @@
 dist/
 # generated types
 .astro/
+.vscode/
+.wrangler/
 
 # dependencies
 node_modules/
@@ -26,5 +28,5 @@ pnpm-debug.log*
 *.exe
 *.dll
 *.msi
-.vscode/
-.wrangler/
+
+
