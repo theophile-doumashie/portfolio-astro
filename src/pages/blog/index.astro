@@ -1,11 +1,9 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -13,101 +11,104 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
+		<BaseHead
+			title="Articles — Théophile Doumashie"
+			description="Notes techniques sur la téléphonie IP, les centres de contacts et la sécurité des serveurs Linux, par un ingénieur VoIP basé à Lomé."
+		/>
+		<style is:inline>
+			.blog-main {
+				max-width: 1240px;
+				margin: 0 auto;
+				padding: clamp(48px, 10vh, 120px) clamp(16px, 4vw, 40px);
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
+			.blog-title {
+				margin: 0 0 clamp(26px, 5vh, 44px);
+				font-size: clamp(40px, 7.4vw, 104px);
+				line-height: .92;
+				letter-spacing: -0.042em;
+				text-transform: uppercase;
+			}
+			.blog-intro {
+				margin: 0 0 clamp(32px, 6vh, 56px);
+				max-width: 52ch;
+				font-size: clamp(17px, 1.8vw, 21px);
+				line-height: 1.35;
+				font-weight: 600;
+				text-wrap: pretty;
+			}
+			.blog-list {
+				list-style: none;
 				margin: 0;
 				padding: 0;
+				border-top: 2px solid var(--color-divider);
 			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
+			.blog-list li { border-bottom: 2px solid var(--color-divider); }
+			.blog-list a {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) auto;
+				gap: 12px clamp(20px, 3vw, 40px);
+				align-items: baseline;
+				padding: clamp(20px, 3vh, 32px) 4px;
 				text-decoration: none;
-				transition: 0.2s ease;
+				color: var(--color-text);
+				transition: padding-left .3s cubic-bezier(.2,.7,.2,1), color .2s;
 			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
+			.blog-list a:hover { padding-left: 18px; color: var(--color-accent); }
+			.blog-list h2 {
 				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+				font-size: clamp(22px, 3.2vw, 38px);
+				line-height: 1.06;
+				letter-spacing: -0.02em;
+				text-wrap: balance;
 			}
-			.date {
+			.blog-list .resume {
+				grid-column: 1 / -1;
 				margin: 0;
-				color: rgb(var(--gray));
+				max-width: 62ch;
+				font-size: 15px;
+				color: var(--color-neutral-700);
+				text-wrap: pretty;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			.blog-vide {
+				margin: 0;
+				font-size: 15px;
+				color: var(--color-neutral-700);
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
+			@media (max-width: 640px) {
+				.blog-list a { grid-template-columns: 1fr; }
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
+		<main class="blog-main">
+			<h1 class="blog-title" data-reveal>Articles<span class="section-num">06</span></h1>
+
+			<p class="blog-intro">
+				Des notes de terrain sur la téléphonie IP, les centres de contacts
+				et la sécurité des serveurs Linux. Ce que j'aurais aimé trouver en
+				français quand j'ai commencé.
+			</p>
+
+			{posts.length === 0 ? (
+				<p class="blog-vide">Aucun article publié pour le moment.</p>
+			) : (
+				<ul class="blog-list">
+					{posts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<h2>{post.data.title}</h2>
+								<span class="mono"><FormattedDate date={post.data.pubDate} /></span>
+								{post.data.description && (
+									<p class="resume">{post.data.description}</p>
+								)}
+							</a>
+						</li>
+					))}
 				</ul>
-			</section>
+			)}
 		</main>
 		<Footer />
 	</body>
