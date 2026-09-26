@@ -2,9 +2,19 @@
    design system (modernist.css). Tokens, colors and component classes
    (.btn, .card, .dialog, .seg, .tag, .field/.input) come from there. */
 
-a { color: var(--color-accent); }
-a:hover { color: var(--color-accent-700); }
+/* --color-accent (#ec3013) sur --color-bg ne tient que 3.76:1, sous le
+   seuil AA de 4.5:1 pour le texte courant. accent-700 tient 6.41:1. */
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-900); }
 .text-muted { color: var(--color-neutral-700); }
+
+.skip-link {
+  position: absolute; top: -100%; left: 0; z-index: 100;
+  padding: 12px 20px; background: var(--color-text); color: var(--color-bg);
+  font-family: var(--font-heading); font-weight: 800; font-size: 14px;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
 
 three-d-stage:not(:defined) { visibility: hidden; }
 

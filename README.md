@@ -1,63 +1,59 @@
-# Astro Starter Kit: Blog
+# Portfolio — Théophile Doumashie
+
+Site vitrine personnel de Théophile Doumashie, ingénieur systèmes, réseaux et VoIP basé à Lomé, Togo. Construit avec [Astro](https://astro.build) et déployé sur Cloudflare.
+
+Site en production : https://theophile.stagebroad.com
+
+## Stack
+
+- **Astro 7**, sortie statique, avec l'adaptateur `@astrojs/cloudflare`
+- **Blog** en collections de contenu Markdown (`src/content/blog`)
+- **Formulaire de contact** via Web3Forms
+- **Sitemap** (`@astrojs/sitemap`), `robots.txt` et `llms.txt` pour le référencement classique et par agents IA
+- Déploiement sur **Cloudflare Workers** via Wrangler (`wrangler.jsonc`)
+
+## Développement
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Le serveur tourne sur `http://localhost:4321`.
 
-Features:
+## Build et prévisualisation
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+```sh
+npm run build
+npm run preview
+```
 
-## 🚀 Project Structure
+Le build est plus strict que le mode dev : c'est là que se révèlent les erreurs de types et les images introuvables, et c'est aussi à ce moment qu'Astro génère les images optimisées.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Structure
 
 ```text
-├── public/
+├── public/                  fichiers statiques (favicon, CSS/JS legacy, robots.txt, llms.txt)
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
+│   ├── assets/               images et polices traitées par Astro (badges, fonts)
+│   ├── components/           Header, Footer, Certifications, BaseHead...
+│   ├── content/blog/         articles de blog (Markdown)
+│   ├── data/                 données structurées (certifications, etc.)
+│   ├── layouts/               BlogPost.astro, Legal.astro
+│   └── pages/
+│       ├── index.astro            page d'accueil (une seule page, sections ancrées)
+│       ├── blog/                  liste et pages d'articles
+│       ├── mentions-legales.md
+│       ├── politique-de-confidentialite.md
+│       ├── politique-cookies.md
+│       └── conditions-utilisation.md
 ├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+├── wrangler.jsonc
+└── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Pages légales
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Les quatre pages légales (`/mentions-legales`, `/politique-de-confidentialite`, `/politique-cookies`, `/conditions-utilisation`) sont des pages Markdown utilisant le layout `src/layouts/Legal.astro`, liées depuis le pied de page sur tout le site.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Les brouillons et la checklist de mise en conformité (déclaration IPDCP, accessibilité, etc.) vivent dans `politique/`, un dossier volontairement exclu du dépôt (voir `.gitignore`) car destiné à un usage interne, pas à la publication.

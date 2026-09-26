@@ -4,6 +4,7 @@ dist/
 .astro/
 .vscode/
 .wrangler/
+worker-configuration.d.ts
 
 # dependencies
 node_modules/
@@ -18,9 +19,20 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.local
+.env.*.local
+.dev.vars
+.dev.vars.*
 
 # macOS-specific files
 .DS_Store
+
+# Windows-specific files
+Thumbs.db
+desktop.ini
+
+# notes internes de conformité (checklist, brouillons) — pas destinées au dépôt public
+politique/
 
 # jetbrains setting folder
 .idea/
@@ -28,5 +40,4 @@ pnpm-debug.log*
 *.exe
 *.dll
 *.msi
-
 

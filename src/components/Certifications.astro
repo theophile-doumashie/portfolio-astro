@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import { certifications } from "../data/certifications";
+---
+
+{certifications.length > 0 && (
+  <ul style="list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:16px">
+    {certifications.map((c) => (
+      <li>
+        <a
+          href={c.verifyUrl}
+          target="_blank"
+          rel="noopener"
+          style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:inherit"
+        >
+          {c.badge && (
+            <Image
+              class="certs__badge"
+              src={c.badge}
+              alt={`Badge ${c.name}`}
+              width={64}
+              height={64}
+              densities={[1, 2]}
+              format="webp"
+              loading="lazy"
+              style="border:2px solid var(--color-divider)"
+            />
+          )}
+          <span style="font-size:12px;text-align:center;max-width:14ch">{c.name}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}

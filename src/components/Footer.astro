@@ -1,6 +1,12 @@
 ---
 // Pied de page commun.
 ---
-  <footer style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:8px 24px;font-size:13px">
+  <footer style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,4vw,40px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;font-size:13px">
     <p class="text-muted" style="margin:0">© 2026 Théophile Doumashie, Lomé, Togo</p>
+    <nav aria-label="Informations légales" style="display:flex;flex-wrap:wrap;gap:6px 20px">
+      <a class="text-muted" href="/mentions-legales" style="text-decoration:none">Mentions légales</a>
+      <a class="text-muted" href="/politique-de-confidentialite" style="text-decoration:none">Confidentialité</a>
+      <a class="text-muted" href="/politique-cookies" style="text-decoration:none">Cookies</a>
+      <a class="text-muted" href="/conditions-utilisation" style="text-decoration:none">CGU</a>
+    </nav>
   </footer>
