@@ -36,6 +36,13 @@ export default defineConfig({
       },
 	],
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    // Le site est entièrement statique et n'a que quelques petites images
+    // locales (badges, avatar) : les transformer au build évite de dépendre
+    // du binding runtime "IMAGES" (Cloudflare Images), qui n'est pas
+    // provisionné dans wrangler.jsonc et renvoyait 404 sur /_image en
+    // production alors que le service local du dev server le masquait.
+    imageService: 'compile',
+  }),
   output: 'static',
 });
